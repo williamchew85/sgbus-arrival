@@ -1,0 +1,14 @@
+{
+  "stops": [
+    {
+      "busStopCode": "83139",
+      "name": "Opp Tampines Stn",
+      "services": []
+    },
+    {
+      "busStopCode": "01012",
+      "name": "Hotel Grand Pacific",
+      "services": ["175", "167"]
+    }
+  ]
+}

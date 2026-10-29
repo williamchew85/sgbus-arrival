@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>SG Bus Arrivals</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main id="board" aria-live="polite">
+      <header class="topbar">
+        <h1 id="stop-name">Loading…</h1>
+        <div class="meta">
+          <span id="clock" class="clock"></span>
+          <span id="updated" class="updated"></span>
+        </div>
+      </header>
+
+      <div id="stale-banner" class="stale-banner" hidden>
+        ⚠ Showing last-known times — live feed unavailable
+      </div>
+
+      <section id="services" class="services">
+        <!-- service rows injected by app.js -->
+      </section>
+
+      <footer class="dots" id="dots" hidden></footer>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
