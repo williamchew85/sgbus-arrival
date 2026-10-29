@@ -1,0 +1,211 @@
+/* SG Bus Arrival — Raspberry Pi kiosk display.
+   Dark ambient theme, responsive 800x480 (DSI) .. 1920x1080 (HDMI).
+   Sizing uses viewport units so it scales to whatever panel the Pi drives. */
+
+:root {
+  --bg: #0b0f14;
+  --panel: #121922;
+  --panel-2: #0e141c;
+  --text: #f2f6fb;
+  --muted: #8ea0b5;
+  --accent: #4ea1ff;
+  --low: #3ddc84; /* seats available */
+  --medium: #ffcc33; /* standing available */
+  --high: #ff5c5c; /* limited standing */
+  --stale: #ff9f43;
+  --radius: clamp(8px, 1.4vw, 18px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden; /* kiosk: no scrollbars */
+  cursor: none; /* hide pointer on the Pi screen */
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+}
+
+#board {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(10px, 2.2vw, 28px);
+  gap: clamp(8px, 1.6vh, 18px);
+}
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 2px solid var(--panel);
+  padding-bottom: clamp(6px, 1.2vh, 14px);
+}
+
+#stop-name {
+  font-size: clamp(1.6rem, 5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--muted);
+  font-size: clamp(0.8rem, 1.8vw, 1.25rem);
+  white-space: nowrap;
+}
+
+.clock {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stale-banner {
+  background: var(--stale);
+  color: #1a1205;
+  font-weight: 700;
+  text-align: center;
+  padding: clamp(4px, 1vh, 10px);
+  border-radius: var(--radius);
+  font-size: clamp(0.85rem, 2vw, 1.3rem);
+}
+
+.services {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.3vh, 14px);
+  overflow: hidden;
+}
+
+.service {
+  display: grid;
+  grid-template-columns: minmax(3.5em, auto) 1fr;
+  align-items: center;
+  gap: clamp(8px, 2vw, 24px);
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: clamp(8px, 1.6vh, 18px) clamp(10px, 2vw, 22px);
+}
+
+.service-no {
+  font-size: clamp(1.8rem, 5.5vw, 4rem);
+  font-weight: 900;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.arrivals {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2.4vw, 28px);
+  justify-content: flex-end;
+}
+
+.arrival {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: clamp(2.4em, 7vw, 4em);
+}
+
+.arrival .mins {
+  font-size: clamp(1.5rem, 5vw, 3.4rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.arrival.arr .mins {
+  color: var(--low);
+}
+
+.arrival .unit {
+  font-size: clamp(0.6rem, 1.4vw, 1rem);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Load dot + icons */
+.badges {
+  display: flex;
+  gap: 4px;
+  margin-top: 2px;
+  height: clamp(0.7rem, 1.6vw, 1rem);
+}
+
+.load-dot {
+  width: clamp(0.5rem, 1.2vw, 0.8rem);
+  height: clamp(0.5rem, 1.2vw, 0.8rem);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.load-low {
+  background: var(--low);
+}
+.load-medium {
+  background: var(--medium);
+}
+.load-high {
+  background: var(--high);
+}
+.load-unknown {
+  background: var(--muted);
+  opacity: 0.4;
+}
+
+.icon {
+  font-size: clamp(0.6rem, 1.4vw, 1rem);
+  color: var(--muted);
+}
+
+.no-bus .mins {
+  font-size: clamp(1rem, 3vw, 2rem);
+  color: var(--muted);
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: clamp(4px, 1vh, 10px);
+}
+
+.dot {
+  width: clamp(8px, 1.4vw, 12px);
+  height: clamp(8px, 1.4vw, 12px);
+  border-radius: 50%;
+  background: var(--panel);
+}
+
+.dot.active {
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

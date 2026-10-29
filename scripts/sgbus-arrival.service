@@ -1,0 +1,20 @@
+[Unit]
+Description=SG Bus Arrival display backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# __USER__ and __APP_DIR__ are substituted by install-service.sh.
+User=__USER__
+WorkingDirectory=__APP_DIR__
+EnvironmentFile=__APP_DIR__/.env
+ExecStart=/usr/bin/node --experimental-strip-types __APP_DIR__/src/index.ts
+Restart=always
+RestartSec=3
+# Keep the LTA key out of the journal.
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
